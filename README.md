@@ -1,1 +1,3 @@
-content/index.md
+# Blog
+
+My personal website and blog
