@@ -1,4 +1,6 @@
 site_name: Jonas Beyer
+repo_name: Gizzzzmo/blog
+repo_url: https://github.com/Gizzzzmo/blog
 docs_dir: content
 plugins:
   - obsidian-bridge
