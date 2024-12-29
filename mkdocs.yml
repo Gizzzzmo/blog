@@ -4,19 +4,31 @@ repo_url: https://github.com/Gizzzzmo/blog
 docs_dir: content
 plugins:
   - obsidian-bridge
+  - search
 markdown_extensions:
   - obsidian_media_mkdocs
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - mdx_math
+
 theme:
   name: simple-blog
-  theme_style: light
-  components:
-    site_name: true
-    title: true
-    menu: true
-    preview: true
-    footer: true
 
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 copyright: Jonas Beyer
+
+#extra:
+#  social:
+#    - name: github
+#      icon: https://github.com/FernandoCelmer/mkdocs-simple-blog/raw/refs/heads/master/docs/assets/favicon.ico
+#      link: https://github.com/Gizzzzmo
+

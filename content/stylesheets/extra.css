@@ -25,3 +25,47 @@ h9 {
 h10 {
     font-size: 0.9em;
 }
+.border-bottom {
+    border-bottom: var(--bs-border-width) var(--bs-border-style) #808386 !important;
+}
+pre {
+    background-color: #333333;
+}
+code {
+    background-color: #333333;
+}
+body {
+    background-color: #fffff3;
+}
+
+.hljs-function {
+    color: #99ff99;
+}
+
+.hljs-params {
+    color: #ff8855;
+}
+
+.hljs-keyword {
+    color: #88ccff;
+}
+
+.hljs-number {
+    color: #ffff88;
+}
+
+.hljs-string {
+    color: #ffff88;
+}
+
+.n {
+    color: #ff88bb;
+}
+
+.p {
+    color: #999999;
+}
+
+.k {
+    color: #88ccff;
+}

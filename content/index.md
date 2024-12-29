@@ -4,9 +4,25 @@ aliases: []
 tags: []
 ---
 
-### This is a subheading
+## This is a subheading
 
-Where are we going?
+``` C
+typedef struct {
+    int x;
+} blub;
 
-- to [[blub]]!!
-- something like that
+int main() {
+    int x = 10;
+    char* str = "asdasd";
+    return 0;
+}
+```
+``` python
+def fun(x):
+    return x
+```
+
+## Math
+When \(a \ne 0 \) there are two solutions to \(ax^2 + bx + c = 0\)
+$$ x = \sum_{i = 0}^{\infty} \frac{1}{i^2}$$ 
+
