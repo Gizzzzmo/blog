@@ -1,0 +1,20 @@
+site_name: Jonas Beyer
+docs_dir: content
+plugins:
+  - obsidian-bridge
+markdown_extensions:
+  - obsidian_media_mkdocs
+theme:
+  name: simple-blog
+  theme_style: light
+  components:
+    site_name: true
+    title: true
+    menu: true
+    preview: true
+    footer: true
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: Jonas Beyer
