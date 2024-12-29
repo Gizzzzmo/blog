@@ -38,6 +38,10 @@ body {
     background-color: #fffff3;
 }
 
+.nc {
+    color: #ff88bb;
+}
+
 .hljs-function {
     color: #99ff99;
 }
