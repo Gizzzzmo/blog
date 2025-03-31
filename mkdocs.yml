@@ -1,19 +1,19 @@
 site_name: Jonas Beyer
+site_description: Jonas Beyer's blog
+site_url: https://jonbyr.com
 repo_name: Gizzzzmo/blog
 repo_url: https://github.com/Gizzzzmo/blog
 docs_dir: content
 plugins:
   - obsidian-bridge
   - search
+  - rss
 markdown_extensions:
   - obsidian_media_mkdocs
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
   - mdx_math
 
 theme:

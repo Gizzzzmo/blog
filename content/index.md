@@ -4,25 +4,7 @@ aliases: []
 tags: []
 ---
 
-## This is a subheading
+I am a programmer, mostly working on deeply embedded projects as part of my day job.
+On the side I like to experiment with compilers, language design, and formal program verification; topics I also (plan to) write about here along with anything else that I might feel inspired about :)
 
-``` C
-typedef struct {
-    int x;
-} blub;
-
-int main() {
-    int x = 10;
-    char* str = "asdasd";
-    return 0;
-}
-```
-``` python
-def fun(x):
-    return x
-```
-
-## Math
-When \(a \ne 0 \) there are two solutions to \(ax^2 + bx + c = 0\)
-$$ x = \sum_{i = 0}^{\infty} \frac{1}{i^2}$$ 
 

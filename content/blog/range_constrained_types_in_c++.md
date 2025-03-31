@@ -17,6 +17,7 @@ private:
 
 int main() {
    asdf<9> x; 
+   const char* str = "blub";
 }
 ```
 
