@@ -29,6 +29,7 @@ h10 {
     border-bottom: var(--bs-border-width) var(--bs-border-style) #808386 !important;
 }
 pre {
+    line-height: 1.5rem;
     background-color: #454545;
 }
 code {
@@ -64,7 +65,6 @@ code {
     .nc {
         color: #ff88bb;
     }
-
 
     .hljs-keyword {
         font-weight: bold;
@@ -132,6 +132,10 @@ code {
         background-color: #454545;
         line-height: 0.1em;
     }
+    p > code {
+        background-color: #51515d;
+        color: #ffcc77 !important;
+    }
 
     .hljs-params {
         color: #ededed;
@@ -188,3 +192,8 @@ p {
     padding-right: 1rem;
 }
 
+p > code {
+    font-size: 0.85rem;
+    letter-spacing: 0.03rem;
+    line-height: 1.6rem;
+}
