@@ -7,7 +7,7 @@ docs_dir: content
 plugins:
   - obsidian-bridge
   - search
-  - rss
+  # - rss
 markdown_extensions:
   - obsidian_media_mkdocs
   - pymdownx.highlight:
