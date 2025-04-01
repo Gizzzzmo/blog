@@ -25,7 +25,7 @@ int main() {
 The code above causes [🌩*Undefined Behavior*🌩](https://blog.regehr.org/archives/213)<sup>TM</sup>.
 That is to say that the standard doesn't specify what the output of the program is supposed to be, and, in principle, a compiler could produce an executable that does *anything*.
 
-More likely than not though `foo` will simply compile to machine code that reads and returns the memory at `&arr + i*sizeof(int)`.
+More likely than not though (assuming no inlining takes place) `foo` will simply compile to machine code that reads and returns the memory at `&arr + i*sizeof(int)`.
 Since the array only occupies memory up to `&arr + 4*sizeof(int)`, calling `foo` like above will read the memory of whatever object the compiler decided to place after `arr`.
 ```cpp
 template<int n>
