@@ -133,8 +133,9 @@ code {
         line-height: 0.1em;
     }
     p > code {
-        background-color: #51515d;
-        color: #ffcc77 !important;
+        background-color: #454545;
+        border-radius: 2px;
+        color: #eeeecc!important;
     }
 
     .hljs-params {
@@ -193,7 +194,11 @@ p {
 }
 
 p > code {
-    font-size: 0.85rem;
+    font-size: 1.2rem;
     letter-spacing: 0.03rem;
     line-height: 1.6rem;
+    padding-top: 0.05rem;
+    padding-bottom: 0.05rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
 }
