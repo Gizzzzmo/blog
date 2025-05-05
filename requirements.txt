@@ -60,4 +60,4 @@ urllib3==2.3.0
 watchdog==6.0.0
 wcwidth==0.2.13
 mdformat_wikilink==0.2.0
-mdformat_fromtmatter==2.0.8
+mdformat_frontmatter==2.0.8
