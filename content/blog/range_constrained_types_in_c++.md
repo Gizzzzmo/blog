@@ -26,17 +26,18 @@ The code above causes
 [🌩*Undefined Behavior*🌩](https://blog.regehr.org/archives/213)<sup>TM</sup> (or
 UB for short). That is to say that a standard-compliant compiler can produce
 code that does *literally anything*. Roughly speaking this is to give the
-optimizer more leeway: it means that it can assume UB never happens and
-aggressively optimize the code based on that assumption.
+compiler more leeway in making aggressive optimizations: it means that it can
+assume UB never happens and optimize the code based on that assumption.
 
 So more likely than not `foo` will simply compile to machine code that reads and
-returns the memory at `&arr + i`. Since the array only occupies memory up to
-`&arr + 4`, calling `foo` like above will try to read the memory of whatever
-object the compiler decided to place after `arr`. If that object is always the
-same, then executing the binary will consistently produce the same return code.
-Maybe there is no object after `arr` and the address right after `arr` is not
-mapped to a region that the created process is allowed to read, resulting in a
-SEGFAULT.
+returns the memory at `&arr + i` (in fact you can click the little green "C" in
+the corner of the code to see that clang's codegen goes exactly that). Since the
+array only occupies memory up to `&arr + 4`, calling `foo` like above will try
+to read the memory of whatever object the compiler decided to place after `arr`.
+If that object is always the same, then executing the binary will consistently
+produce the same return code. Or maybe there is no object after `arr` and the
+address right after `arr` is not mapped to a region that the created process is
+allowed to read, resulting in a SEGFAULT.
 
 In this respect C-style arrays are considered unsafe, and many "modern" C++
 style guides suggest using `std::array` instead. Objects of this type implement
@@ -116,10 +117,11 @@ private:
 ```
 
 Another way of thinking about this is that we are encoding a
-[precondition](#todo) of `safe_array`'s subscript operator in the type system.
-So how can we design `InRange` to guarantee this implied precondition? Ideally
-we would want to be able to use it just like the integral type `T` that it is
-built on top of, i.e. being able to do arithmetic, performing comparisons, etc.
+[precondition](https://akrzemi1.wordpress.com/2013/01/04/preconditions-part-i/)
+of `safe_array`'s subscript operator in the type system. So how can we design
+`InRange` to guarantee this implied precondition? Ideally we would want to be
+able to use it just like the integral type `T` that it is built on top of, i.e.
+being able to do arithmetic, performing comparisons, etc.
 
 For one thing whenever we create a new `InRange` object or assign to an existing
 one from an arbitrary integer we need to obviously check that the constraint is
@@ -148,12 +150,12 @@ private:
 };
 ```
 
-With the single-argument constructor `T`s can now also implicitly convert to
-`InRange<T, ...>` , meaning the introductory example already almost works with
-our custom integer subtype. The only thing missing is some way of retrieving the
-`x` from within `InRange`. By adding a conversion operator back to `T` we can
-both fix this and partly achieve our objective of being able to use
-`InRange<T, ...>` just like `T`:
+With the single-argument constructor objects of type `T` can now also implicitly
+convert to `InRange<T, ...>` , meaning the introductory example already almost
+works with our custom integer subtype. The only thing missing is some way of
+retrieving the `x` from within `InRange`. By adding a conversion operator back
+to `T` we can both fix this and partly achieve our objective of being able to
+use `InRange<T, ...>` just like `T`:
 
 ```cpp
 operator T() {
@@ -161,10 +163,10 @@ operator T() {
 }
 ```
 
-All the below will now compile:
+The below will now compile:
 
 ```cpp
-#include "static/blub.h"
+#include "static/in_range_naive.h"
 
 safe_array<int, 5> arr;
 
@@ -173,7 +175,6 @@ int main() {
     var = var + 1;
     return arr[5] + var;
 }
-
 ```
 
 ... however, we still have all the same problems as with `std::array` and `.at`:
