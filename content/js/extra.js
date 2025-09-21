@@ -8,10 +8,14 @@ function create(htmlStr) {
     return frag;
 }
 
+var done = false;
+
 function modifyCodeBlocks(event) {
-    for (var source of document.getElementsByTagName("pre")) {
+    if (done) return;
+    done = true;
+    const pres = document.getElementsByTagName("pre");
+    for (var source of pres) {
         var code_el = source.getElementsByTagName("code")[0];
-        console.log(code_el.classList);
         var lang = null;
         for (var cl of code_el.classList) {
             if (cl.startsWith("language-")) {
@@ -19,16 +23,13 @@ function modifyCodeBlocks(event) {
             }
 
         }
-        console.log(lang);
         const valid_languages = ["cpp", "c"];
-        console.log();
         if (valid_languages.indexOf(lang) == -1)
             continue;
 
         var lang_translation = new Map();
         lang_translation.set("cpp", "c++");
         lang_translation.set("c", "c");
-        console.log(lang_translation.get(lang));
 
         var lang_compiler = new Map();
         lang_compiler.set("cpp", "clang_trunk");
@@ -38,9 +39,11 @@ function modifyCodeBlocks(event) {
         lang_options.set("cpp", "-std=c++20");
         lang_options.set("c", "");
 
+        var godbolt_source = source.innerText;
+
         if (["cpp", "c"].indexOf(lang) != -1) {
             includes = code_el.getElementsByClassName("hljs-meta-keyword");
-            console.log(includes)
+            var replacements = [];
             for(inc of includes) { 
                 if (inc.innerText != "include")
                     continue;
@@ -58,12 +61,22 @@ function modifyCodeBlocks(event) {
                     continue;
 
                 const link = document.createElement('a');
-                const absolutePath = window.location.origin + "/" + linkText.substring(1, linkText.length - 1);
+                const displayPath = linkText.substring(1, linkText.length - 1);
+                const absolutePath = window.location.origin + "/" + displayPath;
                 link.href = absolutePath;
-                span.innerText = "<" + absolutePath + '>';
-                console.log(span.innerText);
-                link.appendChild(span.cloneNode(true));
-                span.parentNode.replaceChild(link, span);
+                var replacementNode = span.cloneNode(true);
+                replacementNode.innerText = "<" + displayPath + ">";
+                link.appendChild(replacementNode);
+
+                var godbolt_span = span.cloneNode(true);
+                godbolt_span.innerText = "<" + absolutePath + '>';
+                span.parentNode.replaceChild(godbolt_span, span);
+
+                replacements.push([godbolt_span.parentNode, link, godbolt_span])
+            }
+            godbolt_source = source.innerText.slice(0);
+            for (replacement of replacements) {
+                replacement[0].replaceChild(replacement[1], replacement[2])
             }
         }
 
@@ -73,7 +86,7 @@ function modifyCodeBlocks(event) {
                     {
                         id: 1,
                         language: lang_translation.get(lang),
-                        source: source.innerText,
+                        source: godbolt_source,
                         compilers: [ {
                             id: lang_compiler.get(lang),
                             libs: [],
@@ -92,7 +105,7 @@ function modifyCodeBlocks(event) {
                     }
                 ]
         }
-        console.log(JSON.stringify(blub))
+        // console.log(JSON.stringify(blub))
         var url = "https://godbolt.org/clientstate/" + btoa(JSON.stringify(blub));
         var el = create("<div class=\"tooltip-container godbolt-link\"><a target=\"blank\" href=\"" + url + "\"><img src=\"/static/favicon.ico\"></img></a><span class=\"tooltiptext\">View in Compiler Explorer</span></div>");
 
