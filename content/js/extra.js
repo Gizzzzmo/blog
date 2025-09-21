@@ -94,7 +94,7 @@ function modifyCodeBlocks(event) {
         }
         console.log(JSON.stringify(blub))
         var url = "https://godbolt.org/clientstate/" + btoa(JSON.stringify(blub));
-        var el = create("<div class=\"tooltip-container godbolt-link\"><a target=\"blank\" href=\"" + url + "\"><img src=\"https://godbolt.org/favicon.ico?v=1\"></img></a><span class=\"tooltiptext\">View in Compiler Explorer</span></div>");
+        var el = create("<div class=\"tooltip-container godbolt-link\"><a target=\"blank\" href=\"" + url + "\"><img src=\"/static/favicon.ico\"></img></a><span class=\"tooltiptext\">View in Compiler Explorer</span></div>");
 
         source.appendChild(el);
 
