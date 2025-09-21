@@ -100,6 +100,8 @@ implement this behavior for now, this is what `array`'s subscript operator could
 look like:
 
 ```cpp
+#include <cstddef>
+
 template<typename T, T n, T m>
 class InRange;
 
@@ -144,7 +146,7 @@ public:
 
 private:
     bool check_constraint() {
-        return (value >= n && value < m);
+        return (x >= n && x < m);
     }
     T x;
 };
@@ -163,7 +165,7 @@ operator T() {
 }
 ```
 
-The below will now compile:
+The code below will now compile:
 
 ```cpp
 #include "static/in_range_naive.h"
@@ -212,7 +214,7 @@ public:
 
 private:
     constexpr bool check_constraint() {
-        return (value >= n && value < m);
+        return (x >= n && x < m);
     }
     T x;
 };
@@ -229,7 +231,6 @@ safe_array<int, 5> arr;
 
 int main() {
     InRange<int, 0, 5> var(3);
-    var = var + 1;
     return arr[5] + var;
 }
 ```
