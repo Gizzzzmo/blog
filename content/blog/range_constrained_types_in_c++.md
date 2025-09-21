@@ -191,3 +191,45 @@ checks.
 
 Ideally it should also realize *at compile-time* that the access to `arr[5]` is
 illegal, refusing to compile, instead of throwing an exception at run-time.
+
+Since C++ 20 there is a very simple solution: add the `consteval` keyword to the
+constructor, and assignment operator of `InRange`:
+
+```cpp
+template<typename T, T n, T m>
+class InRange {
+public:
+    consteval InRange(T value) : x(value) {
+        if (!check_constraint())
+            throw 1;
+    }
+    consteval InRange<T, n, m>& operator=(T value) {
+        x = value;
+        if (!check_constraint())
+            throw 1;
+        return *this;
+    }
+
+private:
+    constexpr bool check_constraint() {
+        return (value >= n && value < m);
+    }
+    T x;
+};
+```
+
+This guarantees that the functions will be called at a compile time, and when
+they throw this results in a compilation failure. Try compiling the same code as
+before in compiler explorer this time with our new implementation:
+
+```cpp
+#include "static/in_range.h"
+
+safe_array<int, 5> arr;
+
+int main() {
+    InRange<int, 0, 5> var(3);
+    var = var + 1;
+    return arr[5] + var;
+}
+```
